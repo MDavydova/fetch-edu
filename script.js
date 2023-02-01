@@ -28,7 +28,6 @@ const createTableBody = (items, table) => {
     const body = table.createTBody();
 
     items.forEach((item, index) => {
-        console.log(Object.values(item), index)
         const bodyRow = body.insertRow();
         const indexBodyCell = document.createElement("td");
         bodyRow.appendChild(indexBodyCell);
@@ -37,12 +36,15 @@ const createTableBody = (items, table) => {
         Object.values(item).forEach(value => {
             const valueBodyCell = document.createElement("td");
             bodyRow.appendChild(valueBodyCell);
-            valueBodyCell.innerHTML = `${value}`;
+            if(value) {
+                valueBodyCell.innerHTML = `${value}`;
+            } else {
+                valueBodyCell.innerHTML = "";
+            }
         })
 
     })
 }
-
 
 const fetchWord = (word) => {
     const resultsDisplay = document.querySelector(".results")
@@ -64,7 +66,7 @@ const fetchWord = (word) => {
                 resultsDisplay.appendChild(table)
             } else {
                 resultsDisplay.classList.add('not-exists')
-                resultsDisplay.textContent = "No results, try again"
+                resultsDisplay.textContent = "Sorry, we couldn't find any results"
             }
 
         }).catch(function(error) {
@@ -79,6 +81,8 @@ function formSubmitHandler (e) {
 
     if(inputValue.length > 0) {
         fetchWord(inputValue);
+    } else {
+
     }
 
 }
