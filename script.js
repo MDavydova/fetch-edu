@@ -10,15 +10,37 @@ const parseJson = (response) =>  {
     return response.json()
 }
 
-const createHeaders = (items, table) => {
+const createTableHeader = (items, table) => {
     const header = table.createTHead();
     const headerRow = header.insertRow();
+    const headerCell = document.createElement("th");
+    headerRow.appendChild(headerCell);
+    headerCell.innerHTML = "#";
 
     Object.keys(items).forEach((title, index) => {
         const headerCell = document.createElement("th");
         headerRow.appendChild(headerCell);
         headerCell.innerHTML = title;
     });
+}
+
+const createTableBody = (items, table) => {
+    const body = table.createTBody();
+
+    items.forEach((item, index) => {
+        console.log(Object.values(item), index)
+        const bodyRow = body.insertRow();
+        const indexBodyCell = document.createElement("td");
+        bodyRow.appendChild(indexBodyCell);
+        indexBodyCell.innerHTML = `${index+1}`;
+
+        Object.values(item).forEach(value => {
+            const valueBodyCell = document.createElement("td");
+            bodyRow.appendChild(valueBodyCell);
+            valueBodyCell.innerHTML = `${value}`;
+        })
+
+    })
 }
 
 
@@ -37,8 +59,8 @@ const fetchWord = (word) => {
                 resultsDisplay.textContent = ""
                 const itemsToDisplay = items.slice(0, 10);
                 const table = document.createElement("table");
-                createHeaders(itemsToDisplay[0], table)
-                //itemsToDisplay.forEach((item, index) => createDomElement(item, index, table))
+                createTableHeader(itemsToDisplay[0], table);
+                createTableBody(itemsToDisplay, table);
                 resultsDisplay.appendChild(table)
             } else {
                 resultsDisplay.classList.add('not-exists')
