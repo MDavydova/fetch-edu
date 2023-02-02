@@ -1,15 +1,3 @@
-const checkStatus = (response) => {
-    if (response.status >= 200 && response.status < 300) {
-        return Promise.resolve(response)
-    } else {
-        return Promise.reject(new Error(response.statusText))
-    }
-}
-
-const parseJson = (response) =>  {
-    return response.json()
-}
-
 const createTableHeader = (items, table) => {
     const header = table.createTHead();
     const headerRow = header.insertRow();
@@ -46,6 +34,18 @@ const createTableBody = (items, table) => {
     })
 }
 
+const checkStatus = (response) => {
+    if (response.status >= 200 && response.status < 300) {
+        return Promise.resolve(response)
+    } else {
+        return Promise.reject(new Error(response.statusText))
+    }
+}
+
+const parseJson = (response) =>  {
+    return response.json()
+}
+
 const fetchWord = (word) => {
     const resultsDisplay = document.querySelector(".results")
 
@@ -74,7 +74,7 @@ const fetchWord = (word) => {
     });
 }
 
-function formSubmitHandler (e) {
+const formSubmitHandler =  (e) => {
     e.preventDefault();
 
     const inputValue = document.getElementById('word').value;
