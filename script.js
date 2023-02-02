@@ -81,10 +81,7 @@ function formSubmitHandler (e) {
 
     if(inputValue.length > 0) {
         fetchWord(inputValue);
-    } else {
-
     }
-
 }
 
 
